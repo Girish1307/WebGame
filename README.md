@@ -1,2 +1,2 @@
 # WebGame
- DeltaInd
+ DeltaInd Game
