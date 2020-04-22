@@ -1,84 +1,93 @@
 
 var buttons = document.querySelector(".buttons")
-document.querySelector('#container').style.visibility = 'hidden';
 buttons.innerHTML = '<button id="start">Start</button>';
 document.querySelector('#start').addEventListener('click',cstart);
 function cstart(){document.querySelector('#start').remove(); start();}
 let n;
-var d = new Date();
+let d = new Date();
 let score =0;
-function endgame()
-{
+let playtime = 0;
+function endgame(n)
+{   
+    score = Math.floor((1+0.3*n)*100000/((score/n*n)));
     let cond=document.querySelector("#container")
-    cond.innerHTML= ` Game Over <br> Score : ${score} <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <button type="submit" id="submit">Submit</button></form>`;
+    cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime} <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form>`;
     
 }
 function play(n)
-{   console.log('play reached')
-    class svg
+{   let td=d.getTime();
+    console.log('play reached')
+    function playtime()
     {
-         constructor(x,y,z)
-    {   
-        this.id = x;
-        this.a = y;
-        this.b = z;
-    }
-    }
-    let as = new Array(n*n+1);
-    as[0] = new svg(0,true,0);
 
-    for(let i=1; i<=n*n;i++)
-    {   
-        as[i]= new svg(i,false,1);
-        if(i<n*n){
-        document.querySelector(`#s${i}`).addEventListener('click',func(as[i-1],as[i]));
-        }
-        if(i==n*n){document.querySelector(`#s${i}`).addEventListener('click',funce(as[i-1],as[i]));}
     }
-    let g = new svg(0,true,0);
-    let h = new svg(1,true,1);
-    function func(g,h)
-    {
-        if(g.a=true)
+ 
+    let sot=new Array(n*n);
+    sot = document.querySelectorAll('.s');
+    let tos = new Array(n*n);
+    tos = document.querySelectorAll('.t');
+    for(let w=0; w<n*n;w++)
+    {   let v = [];
+        v = sot[w].id.split("");
+        let i = parseInt(`${v[1]}${v[2]}`);
+        console.log(i);
+        sot[w].addEventListener('click',func,disp);
+        function disp(){
+            console.log(`${i}assigned`);
+        }
+        function func()
+    {   let d = new Date();
+        let p = document.querySelector(`#t${i}`)
+        if(i==1)
         {   
-            let k = document.querySelector(`#s${h.id}`);
-            let l = document.querySelector(`#t${h.id}`);
-            l.textContent = '';
-            k.id= `p${h.id}`;
-            g.a=false;
-            h.a= true;
-            h.b = d.getTime();
-            let time = h.b - g.b;
-            if(n==5)
-            {score+= Math.floor(250000/time);}
-            else if(n==7)
-            {score+= Math.floor(490000/time);}
-            else{ score+= Math.floor(640000/time);}
+            let k= document.querySelector(`#s${i}`);
+            console.log(`${1}clicked`);
+            p.textContent = '';
+            score = d.getTime() -td;
+            td= d.getTime();
+            
+           score = score + time;
+        }
+        else if(i==n*n)
+        {   let u = document.querySelector(`#t${i-1}`).textContent;
+        if(u==='') 
+            {let k= document.querySelector(`#s${i}`);
+            console.log(`${n*n}clicked`);
+            p.textContent = '';
+            score += d.getTime() -td;
+            td= d.getTime();
+            
+            
+            endgame(n);
+    }
+        }
+        else if(i<n*n)
+        {   
+         let k= document.querySelector(`#s${i}`);
+          let u = document.querySelector(`#t${i-1}`).textContent;
+          if(u==='')  
+          {
+            console.log(`${i}clicked`);
+            p.textContent = '';
+            
+            score += d.getTime() -td;
+            td= d.getTime();
+            
+          }
         }
     }
-    function funce(g,h)
-    {
-        if(g.a=true)
-        {   
-            console.log(`${h.id}clicked`);
-            let k = document.querySelector(`#s${h.id}`);
-            k.id= `p${h.id}`;
-            g.a=false;
-            h.a= false;
-            h.b = d.getTime();
-            let time = h.b - g.b;
-            if(n==5)
-            {score+= Math.floor(250000/time);}
-            else if(n==7)
-            {score+= Math.floor(490000/time);}
-            else{ score+= Math.floor(640000);}
-            endgame();
-            }
-        }
+        
+    }
+    
+    
+    
+    
+    
 
 }
 function grid(p)
-{   document.querySelector('#container').style.visibility = 'visible';
+{   
+    document.querySelector('#container').style.visibility = 'visible';
     score = 0;
     let a = new Array(p*p+1);
     a[0]=8;
@@ -121,7 +130,7 @@ function grid(p)
             pk.style.borderWidth = "2px";
             let co = 200 - parseInt(b[k], 10)*1.5 ;
             document.querySelector(`#gridline${j}`).appendChild(pk) ;
-            document.querySelector(`#as${b[k]}`).innerHTML = `<svg width="70" height="70" class="s${q}" id="s${b[k]}"><rect x="0" y="0" width="70" height="70" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text id="t${b[k]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${b[k]}</text></svg>` ;
+            document.querySelector(`#as${b[k]}`).innerHTML = `<svg width="70" height="70"class="s" class="s${q}" id="s${b[k]}"><rect x="0" y="0" width="70" height="70" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text class ="t" id="t${b[k]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${b[k]}</text></svg>` ;
         }
     }
 
@@ -143,7 +152,8 @@ function start()
     buttons.insertBefore(c,buttons.childNodes[1]);
     
     function saydif(e)
-    { 
+    {   
+        
         e.preventDefault();
         console.log(document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value);
         document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value;
