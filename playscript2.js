@@ -5,7 +5,7 @@ document.querySelector('#start').addEventListener('click',cstart);
 function cstart(){document.querySelector('#start').remove(); start();}
 let n;
 var d = new Date();
-score =0;
+let score =0;
 function endgame()
 {
     let cond=document.querySelector("#container")
