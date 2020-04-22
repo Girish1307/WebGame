@@ -1,5 +1,6 @@
 
 var buttons = document.querySelector(".buttons")
+document.querySelector('#container').style.visibility = 'hidden';
 buttons.innerHTML = '<button id="start">Start</button>';
 document.querySelector('#start').addEventListener('click',cstart);
 function cstart(){document.querySelector('#start').remove(); start();}
@@ -77,7 +78,7 @@ function play(n)
 
 }
 function grid(p)
-{   
+{   document.querySelector('#container').style.visibility = 'visible';
     score = 0;
     let a = new Array(p*p+1);
     a[0]=8;
@@ -136,7 +137,7 @@ function grid(p)
 }
  
 function start()
-{
+{   document.querySelector('#container').style.visibility = 'hidden';
     var c= document.createElement("form");
     c.id = "difficulty";
     buttons.insertBefore(c,buttons.childNodes[1]);
