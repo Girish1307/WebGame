@@ -8,10 +8,11 @@ let d = new Date();
 let score =0;
 let playtime = 0;
 function endgame(n)
-{   
-    score = Math.floor((1+0.3*n)*100000/((score/n*n)));
+{   playtime = Math.floor(score/100)/10;
+    score = Math.floor((1+0.3*n)*10000000/((score/n*n)));
+
     let cond=document.querySelector("#container")
-    cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime} <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form>`;
+    cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime}s <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form>`;
     
 }
 function play(n)
