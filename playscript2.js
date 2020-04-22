@@ -7,21 +7,43 @@ let n;
 let d = new Date();
 let score =0;
 let playtime = 0;
+let ice = false;
+let ft=0;
 function endgame(n)
-{   playtime = Math.floor(score/100)/10;
+{   
+    document.querySelector('#td').innerHTML = '';
+    
+    
     score = Math.floor((1+0.3*n)*10000000/((score/n*n)));
 
     let cond=document.querySelector("#container")
     cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime}s <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form>`;
     
 }
+var sound = new Audio()
+sound.src="tick.mp3"
+function pt()
+    {   
+        
+        
+        if(ice)
+        {
+            setTimeout(pt,1000);
+            ft+=1;
+            document.querySelector('#td').innerHTML = `${ft}s`
+         }
+         else{ 
+             
+             ft= 0;
+            document.querySelector('#td').innerHTML = ''
+        }
+    }
 function play(n)
 {   let td=d.getTime();
-    console.log('play reached')
-    function playtime()
-    {
-
-    }
+    ice = true;
+    pt();
+    console.log('play reached');
+    
  
     let sot=new Array(n*n);
     sot = document.querySelectorAll('.s');
@@ -32,29 +54,32 @@ function play(n)
         v = sot[w].id.split("");
         let i = parseInt(`${v[1]}${v[2]}`);
         console.log(i);
-        sot[w].addEventListener('click',func,disp);
+        sot[w].addEventListener('click',func,disp,sound.play());
         function disp(){
             console.log(`${i}assigned`);
         }
         function func()
     {   let d = new Date();
+        sound.play()
         let p = document.querySelector(`#t${i}`)
         if(i==1)
         {   
             let k= document.querySelector(`#s${i}`);
             console.log(`${1}clicked`);
             p.textContent = '';
-            score = d.getTime() -td;
+            score += d.getTime() -td;
             td= d.getTime();
             
-           score = score + time;
         }
         else if(i==n*n)
         {   let u = document.querySelector(`#t${i-1}`).textContent;
         if(u==='') 
-            {let k= document.querySelector(`#s${i}`);
+            {
+                let k= document.querySelector(`#s${i}`);
             console.log(`${n*n}clicked`);
             p.textContent = '';
+            playtime = ft;
+            ice =false;
             score += d.getTime() -td;
             td= d.getTime();
             
@@ -88,6 +113,8 @@ function play(n)
 }
 function grid(p)
 {   
+    
+    
     document.querySelector('#container').style.visibility = 'visible';
     score = 0;
     let a = new Array(p*p+1);
@@ -140,6 +167,7 @@ function grid(p)
     play(p);
     function creset()
     { 
+        document.querySelector('#td').innerHTML = '';
     document.querySelector('#reset').remove();
     document.querySelector("#container").innerHTML='';
     start();
@@ -147,7 +175,9 @@ function grid(p)
 }
  
 function start()
-{   document.querySelector('#container').style.visibility = 'hidden';
+{   
+   
+    document.querySelector('#container').style.visibility = 'hidden';
     var c= document.createElement("form");
     c.id = "difficulty";
     buttons.insertBefore(c,buttons.childNodes[1]);
@@ -160,10 +190,12 @@ function start()
         document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value;
         n= document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value;
         document.querySelector('#difficulty').remove();
+        
         grid(n);
     }
     
     document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="5">Easy</option><option value="7">Medium</option><option value="8">Difficult</option></select> <button id="play">Play</button>';
     document.querySelector('#play').addEventListener('click',saydif);
+
 }
 
