@@ -9,7 +9,7 @@ let score =0;
 function endgame()
 {
     let cond=document.querySelector("#container")
-    cond.innerHTML= ` Game Over <br> Score : ${score} <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <button type="submit" id="submit">Submit</button></form>`;
+    cond.innerHTML= ` Game Over <br> Score : ${score} <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <button type="submit" id="submit">Submit</button></form>`;
     
 }
 function play(n)
