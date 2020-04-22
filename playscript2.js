@@ -30,9 +30,9 @@ function play(n)
     {   
         as[i]= new svg(i,false,1);
         if(i<n*n){
-        document.querySelector(`#s${i}`).addEventListener('click',func(as[i],as[i-1]));
+        document.querySelector(`#s${i}`).addEventListener('click',func(as[i-1],as[i]));
         }
-        if(i==n*n){document.querySelector(`#s${i}`).addEventListener('click',funce(a[i],a[i-1]));}
+        if(i==n*n){document.querySelector(`#s${i}`).addEventListener('click',funce(as[i-1],as[i]));}
     }
     let g = new svg(0,true,0);
     let h = new svg(1,true,1);
@@ -52,13 +52,14 @@ function play(n)
             {score+= Math.floor(250000/time);}
             else if(n==7)
             {score+= Math.floor(490000/time);}
-            else{ score+= Math.floor(640000);}
+            else{ score+= Math.floor(640000/time);}
         }
     }
     function funce(g,h)
     {
         if(g.a=true)
         {   
+            console.log(`${h.id}clicked`);
             let k = document.querySelector(`#s${h.id}`);
             k.id= `p${h.id}`;
             g.a=false;
