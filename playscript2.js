@@ -17,14 +17,15 @@ function endgame(n)
     score = Math.floor((Math.pow(n,3))*10000000/((score/n*n)));
 
     let cond=document.querySelector("#container")
-    cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime}s <br> <button id="replay">Play Again</button><br> <form id="infostore"><label>Name</label><input type="text" id="name" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form> `;
+    cond.innerHTML= ` <div id="endgame">Game Over <br> Score : ${score} <br> Play Time : ${playtime}s <br> <button id="replay">Play Again</button><br> <form id="infostore"><label>Name</label><input type="text" id="name" name="name" placeholder="Enter Name"> <br><br><button type="submit" id="submit">Submit</button></form></div> `;
     document.querySelector('#infostore').addEventListener('submit',save);
     document.querySelector('#replay').addEventListener('click',cxreset);
     function save(e)
     {   
-        
+        if (typeof(Storage) !== "undefined")
+        {
         var k = document.querySelector('#name').value;
-        if(k!==null)
+        if(k!=='')
         {
         e.preventDefault();
         document.querySelector('#replay').style.visibility = 'visible';
@@ -86,7 +87,10 @@ function endgame(n)
                 }
             }
         }
-    }   
+    }else{alert('Score Not Saved')}  
+}else{
+    setTimeout(function(){ document.querySelector('#container').innerHTML = 'Score Cannot be Saved' },3000);
+}
         for(let m=1;m<6;m++)
         {
             console.log(localStorage.getItem(`score${m}`),localStorage.getItem(`name${m}`));
@@ -142,6 +146,7 @@ function play(n)
         {   
             let k= document.querySelector(`#s${i}`);
             console.log(`${1}clicked`);
+            document.querySelector('#last').innerHTML = `<svg width="50" height="50" id="x"><rect x="0" y="0" width="50" height="50" style="fill:white;stroke:black;stroke-width:5;opacity:1"/><text id="x" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${i}</text></svg>` ;
             p.textContent = '';
             score += d.getTime() -td;
             td= d.getTime();
@@ -153,6 +158,7 @@ function play(n)
             {
                 let k= document.querySelector(`#s${i}`);
             console.log(`${n*n}clicked`);
+            document.querySelector('#last').innerHTML = '';
             p.textContent = '';
             playtime = ft;
             ice =false;
@@ -167,9 +173,11 @@ function play(n)
         {   
          let k= document.querySelector(`#s${i}`);
           let u = document.querySelector(`#t${i-1}`).textContent;
+          
           if(u==='')  
           {
             console.log(`${i}clicked`);
+            document.querySelector('#last').innerHTML = `<svg width="50" height="50" id="x"><rect x="0" y="0" width="50" height="50" style="fill:white ;stroke:black;stroke-width:5;opacity:1"/><text id="x" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${i}</text></svg>` ;
             p.textContent = '';
             
             score += d.getTime() -td;
@@ -235,7 +243,7 @@ function grid(p)
             pk.style.borderWidth = "2px";
             let co = 200 - parseInt(b[k], 10)*1.5 ;
             document.querySelector(`#gridline${j}`).appendChild(pk) ;
-            document.querySelector(`#as${b[k]}`).innerHTML = `<svg width="70" height="70"class="s" class="s${q}" id="s${b[k]}"><rect x="0" y="0" width="70" height="70" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text class ="t" id="t${b[k]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${b[k]}</text></svg>` ;
+            document.querySelector(`#as${b[k]}`).innerHTML = `<svg width="50" height="50"class="s" class="s${q}" id="s${b[k]}"><rect x="0" y="0" width="50" height="50" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text class ="t" id="t${b[k]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${b[k]}</text></svg>` ;
         }
     }
 
@@ -281,7 +289,7 @@ function start()
         grid(n);
     }
     
-    document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="3">Easy</option><option value="7">Medium</option><option value="8">Difficult</option></select> <button id="play">Play</button>';
+    document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="5">Easy</option><option value="7">Medium</option><option value="8">Difficult</option></select> <button id="play">Play</button>';
     document.querySelector('#play').addEventListener('click',saydif);
 
 }
@@ -315,4 +323,9 @@ function jip()
     }
 
 }
-
+document.querySelector('#ins').addEventListener('mouseover',funco);
+function funco()
+{
+    document.querySelector('#inst').style.visibility = 'visible';
+    setTimeout(function(){document.querySelector('#inst').style.visibility = 'hidden'},5000);
+}

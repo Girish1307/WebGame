@@ -31,6 +31,18 @@
 	background-repeat: no-repeat;
 
 }
+#indexbody h4{
+	color: #092459;
+}
+#indexbody p{
+	background-color :#4C6365;
+	opacity: 0.6;
+
+}
+h3{
+	padding-top:20px;
+	margin-top : 20px;
+}
 #nav{
 	width :100%;
 	background-repeat: round;
@@ -46,13 +58,14 @@
 
 #nav ul{
 	list-style: none;
+	background-color: #427AE6;
 
 	}
 #nav li{
 	display:inline;
 }
 .head2{
-	padding:5px;
+	padding:7px;
 	text-align: center;
 	font-family: all;
 	font-size:60px;

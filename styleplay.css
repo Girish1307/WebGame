@@ -17,25 +17,18 @@
 	src: url(Digital.ttf);
 }
 
-#ins{
-	color:white;
-	background-color: rgb(0.5,0.5,0.5);
-	border:1px solid red;
-	display: inline-block;
-	padding : 3px;
+#inso{
+	color: black;
+	
+	opacity: 0.8;
+	width:100px;
+	max-height: 100px;
+	font-size:24px;
+	display: inline;
+
 }
-#ins:hover{
-	color:red;
-}
-#inst{
-	background-color: #4F4745 ;
-	visibility: 
-	text-align:center;
-	display: inline-block;
-	color: white;
-	width:200px;
-	height:80px;
-}
+
+#inst{visibility: hidden;}
 #container{
 	border:black solid 8px;
 	display: inline-block;
@@ -83,9 +76,14 @@
 #replay{
 	visibility: hidden;
 }
-.s{ cursor: pointer; }
+.s{ 
+	cursor: pointer;
+	margin:0px;
+	padding:3px 3px 0px 0px;
+	border:0px; 
+}
 .s:hover {
-	fill: orange;
+	fill: white;
 }
 #cont{
 	position:relative;
@@ -101,4 +99,7 @@
 	color:darkgreen;
 	float : right;
 	width : 5%;
+}
+#endgame{
+	padding-right:5px;
 }
