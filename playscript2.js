@@ -4,21 +4,94 @@ buttons.innerHTML = '<button id="start">Start</button>';
 document.querySelector('#start').addEventListener('click',cstart);
 function cstart(){document.querySelector('#start').remove(); start();}
 let n;
-let d = new Date();
+
 let score =0;
 let playtime = 0;
 let ice = false;
 let ft=0;
+assigntable();
 function endgame(n)
 {   
+    document.querySelector('#reset').remove();
     document.querySelector('#td').innerHTML = '';
-    
-    
-    score = Math.floor((1+0.3*n)*10000000/((score/n*n)));
+    score = Math.floor((Math.pow(n,3))*10000000/((score/n*n)));
 
     let cond=document.querySelector("#container")
-    cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime}s <br> <form id="infostore"><label>Name</label><input type="text" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form>`;
-    
+    cond.innerHTML= ` Game Over <br> Score : ${score} <br> Play Time : ${playtime}s <br> <button id="replay">Play Again</button><br> <form id="infostore"><label>Name</label><input type="text" id="name" name="name" placeholder="Enter Name"> <br><button type="submit" id="submit">Submit</button></form> `;
+    document.querySelector('#infostore').addEventListener('submit',save);
+    document.querySelector('#replay').addEventListener('click',cxreset);
+    function save(e)
+    {   
+        
+        var k = document.querySelector('#name').value;
+        if(k!==null)
+        {
+        e.preventDefault();
+        document.querySelector('#replay').style.visibility = 'visible';
+        let a = localStorage.getItem("name1");
+        if(a==null)
+        {
+            localStorage.setItem("name1",k);
+            localStorage.setItem("score1",score);
+            localStorage.setItem("n",1);
+            document.querySelector('#infostore').remove();
+            
+           
+        }else if(localStorage.getItem("n")<5)
+        {
+            let sb = localStorage.getItem("n");
+            sb++;
+            localStorage.setItem("n",sb);
+            for(let i=1;i<sb;i++)
+            {
+                if(score>localStorage.getItem(`score${i}`))
+                {
+                    for(let j=sb;j>i;j--)
+                    {   let r= j-1;
+                        let sp = localStorage.getItem(`score${r}`);
+                        let np = localStorage.getItem(`name${r}`);
+                        console.log(np,'swapped with',sp);
+                        localStorage.setItem(`score${j}`,sp);
+                        localStorage.setItem(`name${j}`,np);
+                    }
+                    localStorage.setItem(`score${i}`,score);
+                    localStorage.setItem(`name${i}`,k);
+                    break;
+                }else{
+                    localStorage.setItem(`score${sb}`,score);
+                    localStorage.setItem(`name${sb}`,k);
+                }
+            }
+            document.querySelector('#infostore').remove();
+
+        }else
+        {
+            for(let i=1;i<6;i++)
+            {
+                if(score>localStorage.getItem(`score${i}`))
+                {
+                    for(let j=5;j>i;j--)
+                    {   
+                        let r= j-1;
+                        let sp = localStorage.getItem(`score${r}`);
+                        let np = localStorage.getItem(`name${r}`);
+                        console.log(np,'swapped with',sp);
+                        localStorage.setItem(`score${j}`,sp);
+                        localStorage.setItem(`name${j}`,np);
+                    }
+                    localStorage.setItem(`score${i}`,score);
+                    localStorage.setItem(`name${i}`,k);
+                    document.querySelector('#infostore').remove();
+                    break;
+                }
+            }
+        }
+    }   
+        for(let m=1;m<6;m++)
+        {
+            console.log(localStorage.getItem(`score${m}`),localStorage.getItem(`name${m}`));
+        }
+    }
 }
 var sound = new Audio()
 sound.src="tick.mp3"
@@ -39,7 +112,10 @@ function pt()
         }
     }
 function play(n)
-{   let td=d.getTime();
+{   
+    let d = new Date();
+    score = 0;
+    let td=d.getTime();
     ice = true;
     pt();
     console.log('play reached');
@@ -127,14 +203,15 @@ function grid(p)
     }
     let b = new Array(p*p+1);
     for(let i=0;i<=p*p;i++){ b[i]=i;}
-    for(let i=0; i<=100;i++)
+    for(let i=0; i<=10000;i++)
     {   
-        if(a[i]!=1)
+        let j= Math.floor(Math.random()*10)+1
+        if(a[i]>j)
         {
             let c;
             c = b[a[i]];
-            b[a[i]]=b[a[i]-1];
-            b[a[i]-1]=c;
+            b[a[i]]=b[a[i]-j];
+            b[a[i]-j]=c;
         }
         else{continue;}
     }
@@ -165,15 +242,25 @@ function grid(p)
     buttons.innerHTML = '<button id="reset">Reset</button>';
     document.querySelector('#reset').addEventListener('click',creset);
     play(p);
-    function creset()
+    
+}
+function creset()
     { 
         document.querySelector('#td').innerHTML = '';
     document.querySelector('#reset').remove();
     document.querySelector("#container").innerHTML='';
     start();
+    ice=false;
     }
-}
  
+    function cxreset()
+    { 
+        document.querySelector('#td').innerHTML = '';
+        ice=false;
+    document.querySelector("#container").innerHTML='';
+    start();
+    }
+
 function start()
 {   
    
@@ -194,8 +281,38 @@ function start()
         grid(n);
     }
     
-    document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="5">Easy</option><option value="7">Medium</option><option value="8">Difficult</option></select> <button id="play">Play</button>';
+    document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="3">Easy</option><option value="7">Medium</option><option value="8">Difficult</option></select> <button id="play">Play</button>';
     document.querySelector('#play').addEventListener('click',saydif);
+
+}
+let tva=false;
+document.querySelector('#view').addEventListener('click',jip);
+function assigntable()
+{   document.querySelector('#table').innerHTML = '<table id="dichuu"><tr><th>Place</th><th>Name</th><th>Score</th></tr></table>'
+    let n = localStorage.getItem('n');
+    let tb = document.querySelector('#dichuu')
+    for(let i=0;i<n;i++)
+    {
+        let p = tb.insertRow(i+1);
+        let cell1 = p.insertCell(0);
+        let cell2 = p.insertCell(1);
+        let cell3 = p.insertCell(2);
+        cell1.innerHTML = `${i+1}`;
+        cell2.innerHTML = `${localStorage.getItem(`name${i+1}`)}`;
+        cell3.innerHTML = `${localStorage.getItem(`score${i+1}`)}`;
+    }
+}
+function jip()  
+{
+    if(tva==false)
+    {
+        document.querySelector('#table').style.visibility = 'visible';
+        tva=true;
+    }else
+    {
+        document.querySelector('#table').style.visibility = 'hidden';
+        tva=false;
+    }
 
 }
 

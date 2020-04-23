@@ -7,6 +7,10 @@
 	font-size:40px;
 	padding:8px;
 }
+*{
+	text-align: center;
+	border : 3px;
+}
 
 @font-face{
 	font-family:big;
@@ -41,22 +45,7 @@
 }
 
 
-.s0{
-	
-	margin:0px;
-	padding:0px;
-	padding-right: 4px;
 
-}
-.s1{
-	
-	
-	margin:0px;
-	padding-right:4px;
-
-	
-	
-}
 
 #playbody{
 	background-color: lightgrey;
@@ -80,6 +69,16 @@
 #container{
 	
 	text-align: center;
+	border : 2px 2px 2px 2px;
+}
+#table{
+	visibility: hidden;
+	text-align: center;
+}
+#dichuu{
+	text-align: center;
+	display: inline-flex;
+	border: 1px solid black;
 }
 #replay{
 	visibility: hidden;
@@ -88,12 +87,18 @@
 .s:hover {
 	fill: orange;
 }
+#cont{
+	position:relative;
+	display: block;
+	margin : auto;
+}
 .t{cursor: -webkit-grabbing; cursor: grabbing;}
 #td{
-	display: inline-block;
+	position: absolute;
+	display: inline-flex;
 	text-align: center;
 	background-color: yellow;
 	color:darkgreen;
-
-
+	float : right;
+	width : 5%;
 }
