@@ -7,7 +7,7 @@
 }
 @font-face{
 	font-family: impacti;
-	src: url(Impacted.ttf);
+	src: url(../assets/fonts/Impacted.ttf);
 	font-weight: 100;
 }
 #nav a{
@@ -16,7 +16,7 @@
 }
 #header{
 	color: lightgrey ;
-	background-image: url(mainback.jpg);
+	background-image: url(../assets/images/mainback.jpg);
 	background-repeat: none;
 	width:100%;
 	min-height: 50%;

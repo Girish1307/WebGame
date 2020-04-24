@@ -238,12 +238,22 @@ function grid(p)
             let k=  j*p+i+1;
             let pk= document.createElement("div");
             pk.id= `as${b[k]}`;
+            let g=0;
+            if(p==4)
+            {
+                 g = 70;
+            }else if(p==5)
+            {
+                 g = 60;
+            }else{ 
+                 g=50;
+            }
             pk.style.display = "inline";
             pk.style.border = " 0px black";
             pk.style.borderWidth = "2px";
             let co = 200 - parseInt(b[k], 10)*1.5 ;
             document.querySelector(`#gridline${j}`).appendChild(pk) ;
-            document.querySelector(`#as${b[k]}`).innerHTML = `<svg width="50" height="50"class="s" class="s${q}" id="s${b[k]}"><rect x="0" y="0" width="50" height="50" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text class ="t" id="t${b[k]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${b[k]}</text></svg>` ;
+            document.querySelector(`#as${b[k]}`).innerHTML = `<svg width="${g}" height="${g}"class="s" class="s${q}" id="s${b[k]}"><rect x="0" y="0" width="${g}" height="${g}" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text class ="t" id="t${b[k]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${b[k]}</text></svg>` ;
         }
     }
 
@@ -258,6 +268,7 @@ function creset()
     document.querySelector('#reset').remove();
     document.querySelector("#container").innerHTML='';
     start();
+    document.querySelector('#last').innerHTML= '';
     ice=false;
     }
  
@@ -266,6 +277,7 @@ function creset()
         document.querySelector('#td').innerHTML = '';
         ice=false;
     document.querySelector("#container").innerHTML='';
+    document.querySelector('#last').innerHTML= '';
     start();
     }
 
@@ -289,7 +301,7 @@ function start()
         grid(n);
     }
     
-    document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="5">Easy</option><option value="7">Medium</option><option value="8">Difficult</option></select> <button id="play">Play</button>';
+    document.querySelector('#difficulty').innerHTML = '<label>Difficulty</label> <select name="difficulty" id="select"><option value="4">Easy</option><option value="5">Medium</option><option value="6">Difficult</option></select> <button id="play">Play</button>';
     document.querySelector('#play').addEventListener('click',saydif);
 
 }

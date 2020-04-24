@@ -1,7 +1,7 @@
 
 .playtitle{
 	text-align: center;
-	background-image: url(mainback.jpg);
+	background-image: url(../assets/images/mainback.jpg);
 	color:white;
 	font-family:big;
 	font-size:40px;
@@ -14,7 +14,7 @@
 
 @font-face{
 	font-family:big;
-	src: url(Digital.ttf);
+	src: url(../assets/fonts/Digital.ttf);
 }
 
 #inso{
