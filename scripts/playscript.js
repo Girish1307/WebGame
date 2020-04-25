@@ -53,7 +53,7 @@ function endgame(n)
                     {   let r= j-1;
                         let sp = localStorage.getItem(`score${r}`);
                         let np = localStorage.getItem(`name${r}`);
-                        console.log(np,'swapped with',sp);
+                        
                         localStorage.setItem(`score${j}`,sp);
                         localStorage.setItem(`name${j}`,np);
                     }
@@ -78,7 +78,7 @@ function endgame(n)
                         let r= j-1;
                         let sp = localStorage.getItem(`score${r}`);
                         let np = localStorage.getItem(`name${r}`);
-                        console.log(np,'swapped with',sp);
+                        
                         localStorage.setItem(`score${j}`,sp);
                         localStorage.setItem(`name${j}`,np);
                     }
@@ -93,10 +93,7 @@ function endgame(n)
 }else{
     setTimeout(function(){ document.querySelector('#container').innerHTML = 'Score Cannot be Saved' },3000);
 }
-        for(let m=1;m<6;m++)
-        {
-            console.log(localStorage.getItem(`score${m}`),localStorage.getItem(`name${m}`));
-        }
+        
     }
 }
 var sound = new Audio()
@@ -125,7 +122,7 @@ function play(n)
     ice = true;
     pt();
     let u=0;
-    console.log('play reached');
+    
     reassign();
     function reassign()
     {   
@@ -137,12 +134,8 @@ function play(n)
         {   
             let v = new Array(3);
             v = sot[w].id.split("");
-            console.log(v);
             let i = parseInt(`${v[1]}${v[2]}`);
-            console.log(i);
-            sot[w].addEventListener('click',funck,disp,sound.play());
-            function disp(){
-            console.log(`${i}assigned`);}
+            sot[w].addEventListener('click',funck,sound.play());
             function funck()
             {   
                 let d = new Date();
@@ -156,8 +149,6 @@ function play(n)
                     
                     if(u==i-1) 
                     {
-                        
-                    console.log(`${i}clicked`);
                     document.querySelector('#last').innerHTML = `${u}`;
                     if(n==1|(n==2&&stk[i%20]==1)|(n==3&&stk[i%20]==2))
                     {
@@ -179,7 +170,6 @@ function play(n)
                         stk[i%20]++;
                         let v = new Array(3);
                         v = s.id.split("");
-                        console.log(v);
                         let qw = parseInt(`${v[1]}${v[2]}`);
                         let k=klm[qw-21];
                         let co = 200 - parseInt(f[i-20],10)*1.5;
@@ -206,7 +196,6 @@ function play(n)
                 {   
                     if(u==(i-1))  
                   {
-                    console.log(`${i}clicked`);
                     if(n==1|(n==2&&stk[i%20]==1)|(n==3&&stk[i%20]==2))
                     {
                         t.textContent = '';
@@ -224,15 +213,10 @@ function play(n)
                     }
                     else if(n==3&&stk[i%20]<2)
                     {   
-                        console.log('tire 3 reached');
-                        console.log(stk[i%20]);
                         stk[i%20]++;
-                        console.log(f[i%20])
                         let v = new Array(3);
                         v = s.id.split("");
-                        console.log(v);
                         let qw = parseInt(`${v[1]}${v[2]}`);
-
                         let k=klm[qw-21] 
                         let co = 200 - parseInt(f[i-20],10)*1.5;
                         document.querySelector(`#as${k}`).innerHTML = `<svg width="100" height="80"class="s" id="s${f[i-20]}"><rect x="0" y="0" width="100" height="80" style="fill:rgb(${co},${co},${co});stroke:black;stroke-width:5;opacity:1"/><text class ="t" id="t${f[i-20]}" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" color="white">${f[i-20]}</text></svg>` ;
@@ -322,7 +306,6 @@ function start()
     {   
         
         e.preventDefault();
-        console.log(document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value);
         document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value;
         n= document.querySelector('#select').options[document.querySelector('#select').selectedIndex].value;
         document.querySelector('#difficulty').remove();
@@ -403,5 +386,4 @@ function shuffle(b)
             }
             else{continue;}
         }
-        console.log(b);
     }
